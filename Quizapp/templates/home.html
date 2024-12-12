@@ -1,0 +1,20 @@
+{% include 'base.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz app</title>
+</head>
+<body>
+    quiz app
+    {% if request.user.is_authenticated %}
+        {% for sessions in sessions %}
+            <h1>{{ sessions }}</h1>
+            <a href="{% url 'quiz' sessions.id %}">Start Quiz</a>
+        {% endfor %}
+    {% else %}
+        <a href="{% url 'login' %}">Start Quiz</a>
+    {% endif %}
+</body>
+</html>

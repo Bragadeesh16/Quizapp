@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>quiz</title>
+</head>
+<body>
+    questions
+    <form method="post">
+        {% csrf_token %}
+        
+        {% for question, form in question_forms %}
+            <div>
+                <h3>{{ question.question }}</h3>
+                <div>
+                    {{ form.answer }}
+                </div>
+            </div>
+        {% endfor %}
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
