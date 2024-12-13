@@ -1,5 +1,5 @@
 
-# Project Name: LMS (Library Management System)
+# Project Name: Quiz App
 
 ## 1. How to Run the Project
 
@@ -15,7 +15,7 @@ Ensure the following are installed on your system:
 1. **Clone the repository**:
 
     ```bash
-    git clone https://github.com/Bragadeesh16/Library-Management-System.git
+    git clone https://github.com/Bragadeesh16/Quizapp.git
     cd LMS
     ```
 
@@ -36,6 +36,10 @@ Ensure the following are installed on your system:
 4. **Run database migrations** (if you're using Django's default database setup with SQLite or any other database):
 
     ```bash
+    python manage.py makemigrations
+    ```
+
+    ```bash
     python manage.py migrate
     ```
 
@@ -46,6 +50,3 @@ Ensure the following are installed on your system:
     ```
 
    The application will be accessible at [http://127.0.0.1:8000](http://127.0.0.1:8000).
-
-### Running the Project in Development Mode
-Ensure `DEBUG = True` in your `settings.py` file to enable live reloading and debugging during development. The default setting for Django projects is `DEBUG = True` in development mode.
