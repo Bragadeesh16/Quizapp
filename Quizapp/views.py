@@ -65,14 +65,16 @@ def quiz(request, pk):
 
     # to redirect the use if he already took the test
 
-    if Useranswer.objects.filter(question_bank = questionBank):
-        return redirect('result',questionBank.id)
+    if Useranswer.objects.filter(question_bank=questionBank):
+        return redirect("result", questionBank.id)
 
     answers = {}
 
     if request.method == "POST":
         for question in random_questions:
-            selected_option = request.POST.get(f"question_{question.id}")
+            selected_option = request.POST.get(
+                f"question_{question.id}"
+            )
             answers[question.id] = selected_option
 
         correct_answer_count = 0
@@ -82,39 +84,50 @@ def quiz(request, pk):
             if answer == correct_answer:
                 correct_answer_count += 1
 
-
         user_answer = Useranswer.objects.create(
             user=request.user,
             question_bank=questionBank,
-            answers= answers, score =  correct_answer_count
+            answers=answers,
+            score=correct_answer_count,
         )
         user_answer.save()
 
-        return redirect('result',questionBank.id)
+        return redirect("result", questionBank.id)
 
-    return render(request, "quiz.html", {'questions': random_questions})
+    return render(
+        request, "quiz.html", {"questions": random_questions}
+    )
 
-def result(request,pk):
+
+def result(request, pk):
     questionBank = QuestionBank.objects.get(id=pk)
-    useranswer = Useranswer.objects.get(question_bank= questionBank)
+    useranswer = Useranswer.objects.get(question_bank=questionBank)
     user_ans = useranswer.answers
     result_data = []
 
     for id, selected_answer in user_ans.items():
         question = Questions.objects.get(id=id)
+        question_count = len(Questions.objects.filter(questionsbank = questionBank))
         correct_answer = question.answer
         is_correct = None
         if selected_answer == correct_answer:
             is_correct = selected_answer
 
-        result_data.append({
-            'question': question.question,
-            'selected_answer': selected_answer,
-            'correct_answer': correct_answer,
-            'is_correct': is_correct,
-        })
+        result_data.append(
+            {
+                "question": question.question,
+                "selected_answer": selected_answer,
+                "correct_answer": correct_answer,
+                "is_correct": is_correct,
+            }
+        )
 
-    return render(request, 'result.html', {
-        'useranswer': useranswer,
-        'result_data': result_data,
-    })
+    return render(
+        request,
+        "result.html",
+        {
+            "useranswer": useranswer,
+            "result_data": result_data,
+            'total':question_count
+        },
+    )

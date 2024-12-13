@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.main-div {
+    border: 1px solid black;
+    width: 35%;
+    margin: 20px auto;
+    padding: 3%;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.Start-Quiz {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 50px;
+    text-decoration: none;
+}
+h5{
+    margin-bottom: 20px;
+}
+@media only screen and (max-width: 600px) {
+    .main-div {
+        width: 90%;
+        padding: 10%;
+    }
+
+    .Start-Quiz {
+        font-size: 14px;
+        padding: 8px;
+        margin-top: 20px;
+    }
+
+    h5 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+}

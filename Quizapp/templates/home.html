@@ -1,19 +1,25 @@
 {% include 'base.html'%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz app</title>
+    {% block stylesheet%}
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    {% endblock %}
 </head>
 <body>
-    {% if request.user.is_authenticated %}
-        {% for sessions in sessions %}
-            <h1>{{ sessions }}</h1>
-            <a href="{% url 'quiz' sessions.id %}">Start Quiz</a>
-        {% endfor %}
-    {% else %}
-        <a href="{% url 'login' %}">Start Quiz</a>
-    {% endif %}
+        {% if request.user.is_authenticated %}
+            {% for sessions in sessions %}
+                <div class="main-div">
+                    <h5>{{ sessions }} Quiz</h5>
+                    <a href="{% url 'quiz' sessions.id %}" class="Start-Quiz">Start Quiz</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <a href="{% url 'login' %}" class="Start-Quiz">Start Quiz</a>
+        {% endif %}
 </body>
 </html>

@@ -1,32 +1,39 @@
 {% include 'base.html'%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>quiz</title>
+    <title>Quiz</title>
+    <link rel="stylesheet" href="{% static 'quiz.css' %}">
 </head>
 <body>
-    questions
-    <form method="post">
-        {% csrf_token %}
-        {% for question in questions %}
-            <p>{{ question.question }}</p>
-            <input type="radio" id="optionone_{{ question.id }}" name="question_{{ question.id }}" value="{{ question.optionone }}">
-            <label for="optionone_{{ question.id }}">{{ question.optionone }}</label><br>
+    <div class="quiz-container">
+        <h5>Questions:</h5>
+        <form method="post">
+            {% csrf_token %}
+            {% for question in questions %}
+                <div class="question">
+                    <p>
+                        <span class="question-number">Q{{ forloop.counter }}.</span>
+                        {{ question.question }}
+                    </p>
+                    <input type="radio" id="optionone_{{ question.id }}" name="question_{{ question.id }}" value="{{ question.optionone }}">
+                    <label for="optionone_{{ question.id }}">{{ question.optionone }}</label><br>
 
-            <input type="radio" id="optiontwo_{{ question.id }}" name="question_{{ question.id }}" value="{{ question.optiontwo }}">
-            <label for="optiontwo_{{ question.id }}">{{ question.optiontwo }}</label><br>
+                    <input type="radio" id="optiontwo_{{ question.id }}" name="question_{{ question.id }}" value="{{ question.optiontwo }}">
+                    <label for="optiontwo_{{ question.id }}">{{ question.optiontwo }}</label><br>
 
-            <input type="radio" id="optionthree_{{ question.id }}" name="question_{{ question.id }}" value="{{ question.optionthree }}">
-            <label for="optionthree_{{ question.id }}">{{ question.optionthree }}</label><br>
+                    <input type="radio" id="optionthree_{{ question.id }}" name="question_{{ question.id }}" value="{{ question.optionthree }}">
+                    <label for="optionthree_{{ question.id }}">{{ question.optionthree }}</label><br>
 
-            <input type="radio" id="optionfour_{{ question.id }}" name="question_{{ question.id }}" value="{{ question.optionfour }}">
-            <label for="optionfour_{{ question.id }}">{{ question.optionfour }}</label><br>
-
-        {% endfor %}
-        <button type="submit">Submit</button>
-    </form>
-     
+                    <input type="radio" id="optionfour_{{ question.id }}" name="question_{{ question.id }}" value="{{ question.optionfour }}">
+                    <label for="optionfour_{{ question.id }}">{{ question.optionfour }}</label><br>
+                </div>
+            {% endfor %}
+            <button type="submit" class="submit-button" >Submit</button>
+        </form>
+    </div>
 </body>
 </html>

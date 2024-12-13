@@ -52,8 +52,11 @@ class Questions(models.Model):
     def __str__(self):
         return self.question
 
+
 class Useranswer(models.Model):
-    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
-    question_bank = models.ForeignKey(QuestionBank, on_delete=models.CASCADE) 
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    question_bank = models.ForeignKey(
+        QuestionBank, on_delete=models.CASCADE
+    )
     answers = JSONField()
     score = models.IntegerField(default=0)

@@ -46,4 +46,3 @@ class LoginForm(forms.Form):
             attrs={"placeholder": "Enter password"}
         ),
     )
-
