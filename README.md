@@ -16,7 +16,7 @@ Ensure the following are installed on your system:
 
     ```bash
     git clone https://github.com/Bragadeesh16/Quizapp.git
-    cd LMS
+    cd Quizapp
     ```
 
 2. **Set up a virtual environment**:
