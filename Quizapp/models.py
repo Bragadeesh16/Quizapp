@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.db.models import JSONField
 
 
 class CustomUser(AbstractUser):
@@ -50,3 +51,9 @@ class Questions(models.Model):
 
     def __str__(self):
         return self.question
+
+class Useranswer(models.Model):
+    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
+    question_bank = models.ForeignKey(QuestionBank, on_delete=models.CASCADE) 
+    answers = JSONField()
+    score = models.IntegerField(default=0)

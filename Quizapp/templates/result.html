@@ -1,0 +1,29 @@
+{% include 'base.html'%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results</title>
+</head>
+<body>
+    <h1>{{ useranswer.user.username }}, here are your results:</h1>
+    <p>Score: {{ useranswer.score }}</p>
+
+    <h2>Questions</h2>
+    <ul>
+        {% for result in result_data %}
+            <li>
+                <strong>Question:</strong> {{ result.question }}<br>
+                <strong>Your Answer:</strong> {{ result.selected_answer }}<br>
+                <strong>Correct Answer:</strong> {{ result.correct_answer }}<br>
+                {% if result.is_correct %}
+                    <span style="color: green;">Correct</span>
+                {% else %}
+                    <span style="color: red;">Incorrect</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

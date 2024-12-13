@@ -5,7 +5,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.forms import modelformset_factory
 
 
 def register(request):
@@ -59,32 +58,63 @@ def home(request):
 
 
 def quiz(request, pk):
-    
     questionBank = QuestionBank.objects.get(id=pk)
-    questions = Questions.objects.filter(
+    random_questions = Questions.objects.filter(
         questionsbank=questionBank
     ).order_by("?")
- 
-    question_forms = []
-    question_order = []
 
-    for question in questions:
-        question_order.append(
-            Questions.objects.get(question=question).id
-        )
-        form = QuestionsForm(question_instance=question)
-        question_forms.append((question, form))
+    # to redirect the use if he already took the test
+
+    if Useranswer.objects.filter(question_bank = questionBank):
+        return redirect('result',questionBank.id)
+
+    answers = {}
 
     if request.method == "POST":
-        for question, form in question_forms:
-            try:
-                if form.is_valid():
-                    selected_answer = form.cleaned_data['answer']
-                    print(f"Answer selected for '{question.question}': {selected_answer}")
-            except Exception as e:
-                print(f"An error occurred: {e}")
+        for question in random_questions:
+            selected_option = request.POST.get(f"question_{question.id}")
+            answers[question.id] = selected_option
+
+        correct_answer_count = 0
+        for id, answer in answers.items():
+            ques = random_questions.get(id=id)
+            correct_answer = ques.answer
+            if answer == correct_answer:
+                correct_answer_count += 1
 
 
-            
+        user_answer = Useranswer.objects.create(
+            user=request.user,
+            question_bank=questionBank,
+            answers= answers, score =  correct_answer_count
+        )
+        user_answer.save()
 
-    return render(request, "quiz.html", {'questions':questions,'question_forms': question_forms}) #"formset": formset,
+        return redirect('result',questionBank.id)
+
+    return render(request, "quiz.html", {'questions': random_questions})
+
+def result(request,pk):
+    questionBank = QuestionBank.objects.get(id=pk)
+    useranswer = Useranswer.objects.get(question_bank= questionBank)
+    user_ans = useranswer.answers
+    result_data = []
+
+    for id, selected_answer in user_ans.items():
+        question = Questions.objects.get(id=id)
+        correct_answer = question.answer
+        is_correct = None
+        if selected_answer == correct_answer:
+            is_correct = selected_answer
+
+        result_data.append({
+            'question': question.question,
+            'selected_answer': selected_answer,
+            'correct_answer': correct_answer,
+            'is_correct': is_correct,
+        })
+
+    return render(request, 'result.html', {
+        'useranswer': useranswer,
+        'result_data': result_data,
+    })

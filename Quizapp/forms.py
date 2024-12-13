@@ -47,25 +47,3 @@ class LoginForm(forms.Form):
         ),
     )
 
-
-class QuestionsForm(forms.Form):
-    def __init__(self, question_instance, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        
-        # Define choices dynamically based on the question instance
-        choices = [
-            (question_instance.optionone, question_instance.optionone),
-            (question_instance.optiontwo, question_instance.optiontwo),
-            (question_instance.optionthree, question_instance.optionthree),
-            (question_instance.optionfour, question_instance.optionfour),
-        ]
-        
-        # Create a radio button group for the question
-        self.fields['answer'] = forms.ChoiceField(
-            choices=choices,
-            widget=forms.RadioSelect,
-            label="Choose your answer"
-        )
-        
-        # Optionally set the initial value if it's already provided (e.g., correct answer)
-        self.fields['answer'].initial = question_instance.answer

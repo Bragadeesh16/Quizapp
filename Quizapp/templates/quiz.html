@@ -1,3 +1,4 @@
+{% include 'base.html'%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,17 +10,23 @@
     questions
     <form method="post">
         {% csrf_token %}
-        
-        {% for question, form in question_forms %}
-            <div>
-                <h3>{{ question.question }}</h3>
-                <div>
-                    {{ form.answer }}
-                </div>
-            </div>
+        {% for question in questions %}
+            <p>{{ question.question }}</p>
+            <input type="radio" id="optionone_{{ question.id }}" name="question_{{ question.id }}" value="{{ question.optionone }}">
+            <label for="optionone_{{ question.id }}">{{ question.optionone }}</label><br>
+
+            <input type="radio" id="optiontwo_{{ question.id }}" name="question_{{ question.id }}" value="{{ question.optiontwo }}">
+            <label for="optiontwo_{{ question.id }}">{{ question.optiontwo }}</label><br>
+
+            <input type="radio" id="optionthree_{{ question.id }}" name="question_{{ question.id }}" value="{{ question.optionthree }}">
+            <label for="optionthree_{{ question.id }}">{{ question.optionthree }}</label><br>
+
+            <input type="radio" id="optionfour_{{ question.id }}" name="question_{{ question.id }}" value="{{ question.optionfour }}">
+            <label for="optionfour_{{ question.id }}">{{ question.optionfour }}</label><br>
+
         {% endfor %}
-        
         <button type="submit">Submit</button>
     </form>
+     
 </body>
 </html>
