@@ -55,13 +55,16 @@
     
     
         {% for message in messages %}
-          <p>{{ message }}</p>
+          <p id="messages" style="display: none;">{{ message }}</p>
         {% endfor %}
 
         {% block content%}
         {% endblock %}
 
         {% block javascript %}
+        <script>  
+          alert(document.getElementById('messages').innerText)
+        </script>
         {% endblock %}
     </main>
 </body>
