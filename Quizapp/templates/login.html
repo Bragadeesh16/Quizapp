@@ -1,19 +1,21 @@
 {% load static %}
-
-{% block stylesheet%}
-<link rel="stylesheet" href="{% static 'login.css' %}">
- {% endblock %}
-
-{% block content %}
-<div class="container">
-    <h4>Login</h4>
-    <form action="{% url 'login' %}" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <button class="">Login</button>
-    </form>
-    <p> Don't have an account ? <a href="{% url 'register'%}">Register</a>
-</div>
-
-
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h4>Login</h4>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    </div>
+</body>
+</html>
