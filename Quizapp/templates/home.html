@@ -19,7 +19,10 @@
                 </div>
             {% endfor %}
         {% else %}
-            <a href="{% url 'login' %}" class="Start-Quiz">Start Quiz</a>
+            <div style="margin-top: 20px;">
+                <a href="{% url 'login' %}" class="Start-Quiz">Start Quiz</a>
+            </div>
+            
         {% endif %}
 </body>
 </html>
