@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-hzc7*_m2f0p8m_^7y(bmzu3zb(4-vim0ey*ld7%9-sd$-1%e^0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = "Quizapp.CustomUser"
 

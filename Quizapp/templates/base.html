@@ -34,11 +34,12 @@
             <ul class="navbar-nav  mb-2 mb-lg-0">
               {% if user.is_authenticated %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'logout'%}" style="color: black;">Logout</a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link" href="{% url 'home' %}" style="color: black;">Home</a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout'%}" style="color: black;">Logout</a>
+              </li>
+              
               {% else %}
               <li class="nav-item">
                 <a class="nav-link signin" href="{% url 'login'%}" style="color: black;">Login</a>

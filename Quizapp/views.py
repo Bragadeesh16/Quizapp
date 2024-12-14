@@ -101,7 +101,7 @@ def quiz(request, pk):
 
 def result(request, pk):
     questionBank = QuestionBank.objects.get(id=pk)
-    useranswer = Useranswer.objects.get(question_bank=questionBank)
+    useranswer = Useranswer.objects.get(question_bank=questionBank,user = request.user)
     user_ans = useranswer.answers
     result_data = []
 
@@ -121,7 +121,7 @@ def result(request, pk):
                 "is_correct": is_correct,
             }
         )
-
+       
     return render(
         request,
         "result.html",
